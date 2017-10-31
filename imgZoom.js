@@ -53,7 +53,6 @@
                 {
                     b= d.querySelector('html');
                     console.log('Function was unable to get body and html element: Last attemp was document ');
-                    ///return false;
                 }
             }
             var zLayer = d.createElement('div');
@@ -67,8 +66,6 @@
             var imgClose = d.createElement('a');
             imgClose.setAttribute('id','zoomClose');
             imgClose.style.cssText='font-family: font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;opacity:0; font-size:22.5px; font-weight:bold; line-height:1; position:absolute;padding: 5px 10px; background-color:rgba(255, 255, 255, 0.65); border-radius:1px; color:#2c3e50; cursor:pointer; transition:opacity 2s ease-in-out; text-decoration:none;box-shadow: 0px 0px 5px rgba(0,0,0,0.35);';
-    //        imgClose.style.backgroundColor='';
-    //        imgClose.style.borderRadius='1px';
 
             var textnode = d.createTextNode("×");  
             imgClose.appendChild(textnode);
@@ -85,33 +82,29 @@
         };
         $.resize=function resize(eW, eH)
         {        
-            var screenW = $.p10(w.innerWidth);
-            var screenH = $.p10(w.innerHeight);
+            var screenW = Math.round($.p10(w.innerWidth) * 100/100);
+            var screenH = Math.round($.p10(w.innerHeight) * 100/100);
 
                 if(eW > screenW && eH > screenH)
                 {
                     $.resize($.p10(eW), $.p10(eH));
-                    console.log('a '+eW+'x'+eH);
                 }
                 else if(eW > screenW && eH < screenH)
                 {
                    $.resize($.p10(eW), $.p10(eH));
-                    console.log('b '+eW+'x'+eH);
                 }
                 else if(eW < screenW && eH > screenH)
                 {
                     $.resize($.p10(eW), $.p10(eH));
-                    console.log('c '+eW+'x'+eH);
                 }
                 else
                 {
                     $.enlarge(d.getElementById('zoomContainer'), eW, eH);
-                    console.log('d '+eW+'x'+eH);
                 }  
         };
         $.p10 = function p10(x)
         {
-            return x-(x*0.20);
+            return Math.round(x-(x*0.20)* 100/100);
         };
         $.enlarge= function enlarge(el, eW, eH)
         {
